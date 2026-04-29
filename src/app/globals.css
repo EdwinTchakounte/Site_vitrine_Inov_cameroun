@@ -1,26 +1,326 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Design system — INOV Cameroun · refonte tech-forward IA 2026.
+ *
+ * Inspirations : Anthropic, Linear, Vercel, OpenAI.
+ * Principes :
+ *   1. Palette ultra-restreinte (4 couleurs max)
+ *   2. Typographie qui porte tout (Inter + Inter Tight + JetBrains Mono)
+ *   3. Espace blanc comme premier élément graphique
+ *   4. Animations invisibles (fade-in subtil au scroll)
+ *   5. Pas de pattern décoratif, pas de halo, pas de wave
+ */
+@theme {
+  /* Palette discipline — 4 couleurs effectives */
+  --color-paper: #fafaf7;        /* fond principal off-white avec touche chaude */
+  --color-ink: #0a0e1a;          /* texte principal navy presque-noir */
+  --color-ink-soft: #5b6470;     /* texte secondaire neutre froid */
+  --color-ink-faint: #a8aeb8;    /* texte tertiaire / labels muted */
+  --color-line: #e6e4dc;         /* filet / bordure ultra-subtile */
+  --color-primary: #0a1738;      /* navy logo — fonds sombres exclusifs */
+  --color-signal: #d81b60;       /* magenta logo — réservé CTA + hover liens */
+
+  /* Aliases conservés pour compatibilité progressive */
+  --color-canvas: #fafaf7;
+  --color-accent: #0a1738;
+
+  /* Familles de polices */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-inter-tight), var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-mono), "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  /* Empêche tout scroll horizontal créé par des éléments décoratifs
+     (halos, blobs, silhouettes) qui débordent légèrement leur container. */
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01", "calt", "liga";
+  font-variant-numeric: tabular-nums;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Système typographique — discipline stricte.
+ *
+ * Échelle calibrée pour un cabinet IA tech-forward 2026.
+ * Référence : Anthropic, Linear, OpenAI.
+ *
+ * Classes :
+ *   .eyebrow       — label mono uppercase (12px tracking 0.16em)
+ *   .h1-display    — H1 hero (Inter Tight 700, 48-88px)
+ *   .h2-display    — H2 section (Inter Tight 600, 32-48px)
+ *   .h2-display-light — version blanche pour fonds sombres
+ *   .h3-display    — H3 sous-section (Inter Tight 600, 22-28px)
+ *   .lead          — sous-titre (Inter 400, 18px max-width 38rem)
+ *   .lead-light    — version blanche
+ *   .body          — paragraphe corps (Inter 400, 16px)
+ * ——————————————————————————————————————————————————————————— */
+@layer components {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--color-signal);
+    line-height: 1;
+  }
+
+  .eyebrow-muted {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    line-height: 1;
+  }
+
+  .h1-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--color-ink);
+    font-size: clamp(2.75rem, 6vw + 0.5rem, 5.5rem);
+  }
+
+  .h2-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--color-ink);
+    font-size: clamp(2rem, 3.2vw + 0.5rem, 3rem);
+  }
+
+  .h2-display-light {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: white;
+    font-size: clamp(2rem, 3.2vw + 0.5rem, 3rem);
+  }
+
+  .h3-display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--color-ink);
+    font-size: clamp(1.4rem, 1.5vw + 0.5rem, 1.75rem);
+  }
+
+  .lead {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    font-weight: 400;
+    color: var(--color-ink-soft);
+    max-width: 38rem;
+  }
+
+  .lead-light {
+    font-size: 1.125rem;
+    line-height: 1.55;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 38rem;
+  }
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Animations — minimales, invisibles, au service du contenu.
+ *
+ * data-reveal   → fade-in subtil + translate-Y léger au scroll.
+ *                 RevealProvider injecte .is-visible quand l'élément
+ *                 entre dans le viewport (threshold 12%).
+ * ——————————————————————————————————————————————————————————— */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: opacity, transform;
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="fade"] {
+  transform: none;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+[data-delay="1"] { transition-delay: 80ms; }
+[data-delay="2"] { transition-delay: 160ms; }
+[data-delay="3"] { transition-delay: 240ms; }
+[data-delay="4"] { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Liens texte — soulignement animé subtil au hover.
+ * Utilisé uniquement sur les liens secondaires importants.
+ * ——————————————————————————————————————————————————————————— */
+.link-line {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+.link-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: right center;
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-line:hover::after {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Parallax fixed — image de fond fixée pendant le scroll, façon
+ * inov-corp.com. Effet "déplacement de fond" très utilisé en B2B.
+ *
+ * Sur mobile (iOS notamment) `background-attachment: fixed` est buggé,
+ * on bascule donc sur scroll classique pour garantir la stabilité.
+ * ——————————————————————————————————————————————————————————— */
+.bg-parallax {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media (min-width: 1024px) {
+  .bg-parallax {
+    background-attachment: fixed;
+  }
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Photo zoom — utilisé sur les images des cards Projets.
+ * Très subtil : scale 1 → 1.03 sur 800ms.
+ * ——————————————————————————————————————————————————————————— */
+.photo-zoom {
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.photo-frame:hover .photo-zoom {
+  transform: scale(1.03);
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Hero slider — animation slide active (entrée + zoom subtil).
+ *
+ * Lorsqu'un slide devient actif, son image enchaîne :
+ *  1. Un swipe entrant translateX 4% → 0 sur 12% de la durée
+ *  2. Un zoom très subtil scale 1.0 → 1.025 sur le reste
+ * Cubic-bezier type SwiftUI pour mouvement naturel.
+ * Durée totale 5000ms (= SLIDE_DURATION_MS 4500ms + marge).
+ * ——————————————————————————————————————————————————————————— */
+@keyframes slide-active {
+  0% {
+    transform: translate3d(4%, 0, 0) scale(1);
+  }
+  12% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.025);
+  }
+}
+
+.slide-active-anim {
+  animation: slide-active 3500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-active-anim {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Noise grain — texture subtile sur Hero pour donner de la matière.
+ * SVG inline en data URI, animation très lente pour éviter le scintillement.
+ * ——————————————————————————————————————————————————————————— */
+.bg-noise {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Slide-up fade — utilisé pour les captions dynamiques du slider Hero.
+ * On force le re-mount avec key React pour relancer l'animation.
+ * ——————————————————————————————————————————————————————————— */
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slide-up-fade {
+  animation: slide-up-fade 500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ———————————————————————————————————————————————————————————
+ * Progress bar — indicateur slide actif qui se remplit en 4.5s.
+ * ——————————————————————————————————————————————————————————— */
+@keyframes progress-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.progress-fill {
+  transform-origin: left center;
+  animation: progress-fill 3000ms linear forwards;
+}
+
+.slider-paused .progress-fill {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
 }
