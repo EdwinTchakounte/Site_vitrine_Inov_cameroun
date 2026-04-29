@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PROFIL } from "@/data/inventaire";
-import { DotsGrid } from "@/components/ui/Decorations";
+import { DotsGrid, SectionMarker, LogoWatermark } from "@/components/ui/Decorations";
 
 /*
  * Section #profil — Le fondateur, parcours, citation Afrique.
@@ -40,7 +40,24 @@ export default function Profil() {
         className="absolute bottom-16 right-0 opacity-40"
       />
 
+      {/* Watermark logo INOV — variante paper pour fond navy */}
+      <LogoWatermark
+        size={520}
+        opacity={0.05}
+        rotate={-4}
+        monochrome="paper"
+        className="absolute top-40 -left-16 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-top-left"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial — variante paper */}
+        <SectionMarker
+          index="07"
+          label="LE FONDATEUR"
+          variant="paper"
+          className="mb-10"
+        />
+
         {/* En-tête */}
         <div data-reveal="up" className="mb-14 md:mb-20 max-w-3xl">
           <p className="eyebrow text-signal">{PROFIL.eyebrow}</p>

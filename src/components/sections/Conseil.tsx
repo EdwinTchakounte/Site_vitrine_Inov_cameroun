@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { CONSEIL, CONCEPTION } from "@/data/inventaire";
-import { SoftBlob } from "@/components/ui/Decorations";
+import {
+  SoftBlob,
+  LogoWatermark,
+  GridPattern,
+  SectionMarker,
+  CornerBracket,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #conseil — 3 offres packagées.
@@ -25,7 +31,30 @@ export default function Conseil() {
         className="absolute -top-40 -right-40"
       />
 
+      {/* Quadrillage fin — signature tech subtile */}
+      <GridPattern
+        variant="ink"
+        cellSize={80}
+        intensity={0.5}
+        className="absolute inset-0 md:[--grid-cell:120px]"
+      />
+
+      {/* Watermark logo INOV — signature de marque, côté droit */}
+      <LogoWatermark
+        size={680}
+        opacity={0.04}
+        rotate={6}
+        className="absolute top-32 -right-24 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-top-right"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial */}
+        <SectionMarker
+          index="03"
+          label="CONSEIL · 03 OFFRES"
+          className="mb-10"
+        />
+
         <div data-reveal="up" className="mb-16 md:mb-20 max-w-3xl">
           <p className="eyebrow">{CONSEIL.eyebrow}</p>
           <h2 className="h2-display mt-5">{CONSEIL.title}</h2>
@@ -33,14 +62,25 @@ export default function Conseil() {
         </div>
 
         {/* 3 cards alignées */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {CONSEIL.offers.map((offer, i) => (
             <article
               key={offer.n}
               data-reveal="up"
               data-delay={String((i % 3) + 1)}
-              className="group flex flex-col bg-white border border-line p-7 md:p-8 lg:p-10 transition-colors duration-300 hover:border-ink/20"
+              className="group relative flex flex-col bg-white border border-line p-7 md:p-8 lg:p-10 transition-all duration-300 hover:border-ink/25 lg:hover:-translate-y-1 lg:hover:shadow-[0_20px_50px_-25px_rgba(10,14,26,0.18)]"
             >
+              {/* Crochets d'angle — premium, desktop uniquement */}
+              <CornerBracket
+                position="tl"
+                size={18}
+                className="absolute top-2.5 left-2.5 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
+              <CornerBracket
+                position="br"
+                size={18}
+                className="absolute bottom-2.5 right-2.5 hidden lg:block opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
               {/* Header — eyebrow mono + durée */}
               <div className="flex items-baseline justify-between gap-4">
                 <p className="font-mono text-xs uppercase tracking-[0.08em] text-ink-faint">

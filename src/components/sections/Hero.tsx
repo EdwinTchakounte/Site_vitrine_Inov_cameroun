@@ -120,7 +120,7 @@ export default function Hero() {
         color="signal"
         size={500}
         opacity={0.08}
-        className="absolute top-1/3 right-1/4 hidden md:block"
+        className="absolute top-1/3 right-1/4 scale-50 md:scale-100 origin-center"
       />
       {/* 1 seule occurrence ConcentricCircles dans le Hero (cf. brief Direction) */}
       <ConcentricCircles
@@ -142,7 +142,7 @@ export default function Hero() {
         cols={6}
         spacing={22}
         size={1.4}
-        className="absolute top-32 left-1/3 opacity-40 hidden lg:block"
+        className="absolute top-32 left-1/3 opacity-40 scale-50 md:scale-75 lg:scale-100 origin-top-left"
       />
 
       {/* Cadre principal — card centrée avec marges */}

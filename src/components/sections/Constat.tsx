@@ -1,5 +1,11 @@
 import { CONSTAT } from "@/data/inventaire";
-import { DotsGrid, SoftBlob } from "@/components/ui/Decorations";
+import {
+  DotsGrid,
+  SoftBlob,
+  LogoWatermark,
+  GridPattern,
+  SectionMarker,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #constat — design éditorial impactant.
@@ -63,10 +69,33 @@ export default function Constat() {
         cols={6}
         spacing={22}
         size={1.4}
-        className="absolute top-1/3 right-4 opacity-40 hidden md:block"
+        className="absolute top-1/3 right-4 opacity-25 md:opacity-40 scale-50 md:scale-100 origin-top-right"
+      />
+
+      {/* Quadrillage fin de fond */}
+      <GridPattern
+        variant="ink"
+        cellSize={80}
+        intensity={0.55}
+        className="absolute inset-0 md:[--grid-cell:120px]"
+      />
+
+      {/* Watermark logo INOV — signature de marque, opacité minimale */}
+      <LogoWatermark
+        size={620}
+        opacity={0.035}
+        rotate={-8}
+        className="absolute -bottom-32 -left-20 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-bottom-left"
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial — desktop large uniquement */}
+        <SectionMarker
+          index="02"
+          label="LE CONSTAT"
+          className="mb-10"
+        />
+
         {/* En-tête */}
         <div data-reveal="up" className="mb-20 md:mb-28 max-w-4xl">
           <p className="eyebrow">{CONSTAT.eyebrow}</p>

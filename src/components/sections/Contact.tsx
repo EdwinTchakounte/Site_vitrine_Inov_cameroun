@@ -4,6 +4,12 @@ import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { CONTACT, CONTACT_SECTION } from "@/data/inventaire";
 import { sendContactMessage, type ContactState } from "@/app/actions";
+import {
+  LogoWatermark,
+  GridPattern,
+  SectionMarker,
+  DotsGrid,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #contact — coordonnées + formulaire, design soft tech.
@@ -66,7 +72,40 @@ export default function Contact() {
         }}
       />
 
+      {/* Quadrillage fin */}
+      <GridPattern
+        variant="ink"
+        cellSize={80}
+        intensity={0.5}
+        className="absolute inset-0 md:[--grid-cell:120px]"
+      />
+
+      {/* Watermark logo INOV — signature côté gauche, ancrage marque */}
+      <LogoWatermark
+        size={680}
+        opacity={0.035}
+        rotate={4}
+        className="absolute bottom-10 -left-24 scale-[0.4] sm:scale-[0.55] md:scale-75 lg:scale-100 origin-bottom-left"
+      />
+
+      {/* DotsGrid d'appoint en bas-droit pour densifier le bas de section */}
+      <DotsGrid
+        variant="ink"
+        rows={6}
+        cols={8}
+        spacing={22}
+        size={1.4}
+        className="absolute bottom-12 right-6 opacity-25 md:opacity-35 scale-50 md:scale-100 origin-bottom-right"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial */}
+        <SectionMarker
+          index="09"
+          label="CONTACT · PARLONS-EN"
+          className="mb-10"
+        />
+
         {/* En-tête */}
         <div data-reveal="up" className="mb-14 md:mb-20 max-w-3xl">
           <p className="eyebrow">{CONTACT_SECTION.eyebrow}</p>

@@ -31,6 +31,8 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showTeaser, setShowTeaser] = useState(false);
+  const teaserDismissedRef = useRef(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -49,6 +51,23 @@ export default function ChatBot() {
       return () => window.clearTimeout(t);
     }
   }, [open]);
+
+  // Bulle d'introduction — affichée au premier chargement pour signaler le bot.
+  useEffect(() => {
+    const showTimer = window.setTimeout(() => {
+      if (!teaserDismissedRef.current) setShowTeaser(true);
+    }, 1500);
+    const hideTimer = window.setTimeout(() => setShowTeaser(false), 12000);
+    return () => {
+      window.clearTimeout(showTimer);
+      window.clearTimeout(hideTimer);
+    };
+  }, []);
+
+  const dismissTeaser = () => {
+    teaserDismissedRef.current = true;
+    setShowTeaser(false);
+  };
 
   const send = async () => {
     const trimmed = input.trim();
@@ -104,12 +123,58 @@ export default function ChatBot() {
 
   return (
     <>
-      {/* FAB rond minimaliste */}
+      {/* Bulle d'introduction — visible au premier chargement, signale qu'il s'agit du bot */}
+      <div
+        className={`fixed z-50 bottom-16 right-4 sm:bottom-20 sm:right-6 max-w-[240px] sm:max-w-[260px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          showTeaser && !open
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-2 pointer-events-none"
+        }`}
+        aria-hidden={!showTeaser || open}
+      >
+        <div className="relative bg-paper border border-line rounded-md shadow-[0_12px_30px_-12px_rgba(10,14,26,0.25)] pl-3.5 pr-7 py-2.5">
+          <button
+            type="button"
+            onClick={dismissTeaser}
+            aria-label="Fermer la bulle d'introduction"
+            className="absolute top-1 right-1 inline-flex items-center justify-center w-5 h-5 text-ink-faint hover:text-ink transition-colors"
+          >
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+          <p className="font-mono text-[10px] uppercase tracking-[0.08em] text-signal">
+            Assistant IA
+          </p>
+          <p className="mt-1 text-[12.5px] text-ink leading-[1.45] font-normal">
+            Bonjour ! Posez-moi vos questions sur INOV Cameroun.
+          </p>
+          {/* Petite flèche pointant vers le FAB */}
+          <span
+            aria-hidden
+            className="absolute -bottom-1.5 right-5 w-3 h-3 bg-paper border-r border-b border-line rotate-45"
+          />
+        </div>
+      </div>
+
+      {/* FAB rond minimaliste — plus discret sur mobile */}
       <button
         type="button"
         aria-label={open ? "Fermer le chat" : "Ouvrir l'assistant IA"}
-        onClick={() => setOpen((o) => !o)}
-        className="fixed z-50 bottom-5 right-5 md:bottom-6 md:right-6 group inline-flex items-center justify-center w-12 h-12 bg-ink text-paper rounded-full shadow-[0_8px_24px_-8px_rgba(10,14,26,0.35)] hover:bg-signal transition-colors"
+        onClick={() => {
+          dismissTeaser();
+          setOpen((o) => !o);
+        }}
+        className="fixed z-50 bottom-4 right-4 md:bottom-6 md:right-6 group inline-flex items-center justify-center w-11 h-11 md:w-12 md:h-12 bg-ink text-paper rounded-full shadow-[0_6px_16px_-6px_rgba(10,14,26,0.30)] md:shadow-[0_8px_24px_-8px_rgba(10,14,26,0.35)] hover:bg-signal transition-colors"
       >
         {open ? <CloseIcon /> : <ChatIcon />}
         {!open && (
@@ -120,9 +185,9 @@ export default function ChatBot() {
         )}
       </button>
 
-      {/* Panel chat — épuré */}
+      {/* Panel chat — pleine largeur sur mobile, flotteur 400px sur sm+ */}
       <div
-        className={`fixed z-40 bottom-20 right-4 md:bottom-24 md:right-6 w-[calc(100vw-2rem)] sm:w-[400px] origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed z-40 left-3 right-3 bottom-[4.25rem] sm:left-auto sm:right-6 sm:bottom-24 sm:w-[400px] origin-bottom-right transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
             : "opacity-0 scale-95 translate-y-2 pointer-events-none"
@@ -131,7 +196,7 @@ export default function ChatBot() {
         role="dialog"
         aria-label="Assistant virtuel INOV Cameroun"
       >
-        <div className="flex flex-col bg-paper border border-line rounded-md shadow-[0_30px_60px_-25px_rgba(10,14,26,0.30)] overflow-hidden h-[560px] max-h-[calc(100vh-7rem)]">
+        <div className="flex flex-col bg-paper border border-line rounded-md shadow-[0_30px_60px_-25px_rgba(10,14,26,0.30)] overflow-hidden h-[75vh] sm:h-[560px] max-h-[calc(100vh-6rem)]">
           {/* Header sobre */}
           <header className="flex items-center justify-between gap-3 px-5 py-3.5 border-b border-line bg-paper">
             <div className="flex items-center gap-2.5 min-w-0">

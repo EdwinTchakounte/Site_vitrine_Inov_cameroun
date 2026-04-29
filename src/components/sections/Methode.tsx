@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { METHODE } from "@/data/inventaire";
-import { ConcentricCircles, DotsGrid, Arc } from "@/components/ui/Decorations";
+import {
+  ConcentricCircles,
+  DotsGrid,
+  Arc,
+  SectionMarker,
+  LogoWatermark,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #methode — 4 étapes du processus.
@@ -54,7 +60,24 @@ export default function Methode() {
         className="absolute -top-24 right-1/3 opacity-70"
       />
 
+      {/* Watermark logo INOV — version paper pour fond navy */}
+      <LogoWatermark
+        size={560}
+        opacity={0.05}
+        rotate={5}
+        monochrome="paper"
+        className="absolute top-32 -right-20 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-top-right"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial — variante paper pour fond sombre */}
+        <SectionMarker
+          index="04"
+          label="MÉTHODE · 04 ÉTAPES"
+          variant="paper"
+          className="mb-10"
+        />
+
         {/* En-tête */}
         <div data-reveal="up" className="mb-16 md:mb-20 max-w-3xl">
           <p className="eyebrow text-signal">{METHODE.eyebrow}</p>

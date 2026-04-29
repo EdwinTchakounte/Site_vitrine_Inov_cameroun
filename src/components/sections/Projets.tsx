@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { PROJETS } from "@/data/inventaire";
-import { SoftBlob } from "@/components/ui/Decorations";
+import {
+  SoftBlob,
+  LogoWatermark,
+  GridPattern,
+  SectionMarker,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #projets — 6 secteurs avec photo, titre, projet, description.
@@ -40,7 +45,30 @@ export default function Projets() {
         className="absolute -bottom-32 -left-40"
       />
 
+      {/* Quadrillage fin */}
+      <GridPattern
+        variant="ink"
+        cellSize={80}
+        intensity={0.5}
+        className="absolute inset-0 md:[--grid-cell:120px]"
+      />
+
+      {/* Watermark logo INOV — signature centre-gauche */}
+      <LogoWatermark
+        size={620}
+        opacity={0.035}
+        rotate={-4}
+        className="absolute top-1/4 -left-24 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-top-left"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial */}
+        <SectionMarker
+          index="06"
+          label="PROJETS TYPES · 06 SECTEURS"
+          className="mb-10"
+        />
+
         <div data-reveal="up" className="mb-16 md:mb-20 max-w-3xl">
           <p className="eyebrow">{PROJETS.eyebrow}</p>
           <h2 className="h2-display mt-5">{PROJETS.title}</h2>

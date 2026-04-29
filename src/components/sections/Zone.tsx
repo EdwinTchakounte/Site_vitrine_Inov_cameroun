@@ -1,5 +1,10 @@
 import { ZONE } from "@/data/inventaire";
-import { SoftBlob } from "@/components/ui/Decorations";
+import {
+  SoftBlob,
+  SectionMarker,
+  LogoWatermark,
+  GridPattern,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #zone — Afrique francophone, version compacte et épurée.
@@ -48,7 +53,30 @@ export default function Zone() {
         className="absolute -top-24 -left-32"
       />
 
+      {/* Quadrillage fin */}
+      <GridPattern
+        variant="ink"
+        cellSize={80}
+        intensity={0.5}
+        className="absolute inset-0 md:[--grid-cell:120px]"
+      />
+
+      {/* Watermark logo INOV — petite signature en bas à droite */}
+      <LogoWatermark
+        size={420}
+        opacity={0.03}
+        rotate={6}
+        className="absolute -bottom-16 right-0 scale-[0.5] sm:scale-[0.65] md:scale-75 lg:scale-100 origin-bottom-right"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial */}
+        <SectionMarker
+          index="08"
+          label="ZONE D'INTERVENTION"
+          className="mb-10"
+        />
+
         <div data-reveal="up" className="mb-10 md:mb-12 max-w-3xl">
           <p className="eyebrow">{ZONE.eyebrow}</p>
           <h2 className="h2-display mt-5">{ZONE.title}</h2>

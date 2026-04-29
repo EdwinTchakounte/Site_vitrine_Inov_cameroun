@@ -3,7 +3,12 @@
 import Image from "next/image";
 import { useState } from "react";
 import { FORMATIONS } from "@/data/inventaire";
-import { SoftBlob, DotsGrid } from "@/components/ui/Decorations";
+import {
+  SoftBlob,
+  DotsGrid,
+  SectionMarker,
+  LogoWatermark,
+} from "@/components/ui/Decorations";
 
 /*
  * Section #formations — onglets Dirigeants/Cadres + accordéon 5 modules.
@@ -79,7 +84,22 @@ export default function Formations() {
         className="absolute top-1/3 right-8 opacity-50"
       />
 
+      {/* Watermark logo INOV — signature en bas à gauche */}
+      <LogoWatermark
+        size={520}
+        opacity={0.035}
+        rotate={-6}
+        className="absolute -bottom-20 -left-20 scale-[0.45] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-bottom-left"
+      />
+
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Repère éditorial */}
+        <SectionMarker
+          index="05"
+          label="FORMATIONS IA · 02 PARCOURS"
+          className="mb-10"
+        />
+
         {/* En-tête */}
         <div data-reveal="up" className="mb-16 md:mb-20 max-w-3xl">
           <p className="eyebrow">{FORMATIONS.eyebrow}</p>

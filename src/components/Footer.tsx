@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <nav aria-label="Liens du site" className="col-span-6 md:col-span-3">
+          <nav aria-label="Liens du site" className="col-span-12 sm:col-span-6 md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/40">
               Navigation
             </p>
@@ -78,7 +78,7 @@ export default function Footer() {
           </nav>
 
           {/* Contact */}
-          <div className="col-span-6 md:col-span-3">
+          <div className="col-span-12 sm:col-span-6 md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/40">
               Contact
             </p>
@@ -86,7 +86,7 @@ export default function Footer() {
               <li>
                 <a
                   href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
-                  className="text-sm text-paper/75 hover:text-paper font-normal transition-colors"
+                  className="text-sm text-paper/75 hover:text-paper font-normal transition-colors break-words"
                 >
                   {CONTACT.phone}
                 </a>
@@ -123,7 +123,7 @@ export default function Footer() {
           </div>
 
           {/* Légal */}
-          <div className="col-span-12 md:col-span-2">
+          <div className="col-span-12 sm:col-span-6 md:col-span-2">
             <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/40">
               Légal
             </p>
