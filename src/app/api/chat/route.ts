@@ -42,7 +42,7 @@ const MAX_CONTENT_CHARS = 4000;
 /* Pour OpenRouter, ces headers améliorent les rankings publics et l'attribution.
  * Optionnels mais recommandés. */
 const APP_REFERER = process.env.LLM_APP_REFERER ?? "https://inov-cameroun.com";
-const APP_TITLE = process.env.LLM_APP_TITLE ?? "INOV Cameroun";
+const APP_TITLE = process.env.LLM_APP_TITLE ?? "Inov Consulting Cameroun";
 
 export async function POST(req: NextRequest) {
   if (!LLM_API_KEY) {

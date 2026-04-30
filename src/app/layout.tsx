@@ -3,6 +3,7 @@ import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import RevealProvider from "@/components/RevealProvider";
 import ChatBot from "@/components/ChatBot";
+import CookieBanner from "@/components/CookieBanner";
 
 /*
  * Pairing typographique tech-forward IA — refonte profonde 2026.
@@ -43,37 +44,40 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://inov-cameroun.com"),
   title: {
-    default: "INOV Cameroun — Conseil & Formation IA · Yaoundé",
-    template: "%s · INOV Cameroun",
+    default: "Inov Consulting Cameroun — Intelligence Artificielle · Yaoundé",
+    template: "%s · Inov Consulting Cameroun",
   },
   description:
-    "Cabinet de conseil en transformation digitale et intelligence artificielle — ancré au Cameroun, rayonnant en Afrique francophone.",
+    "On installe l'IA dans votre organisation — et on reste jusqu'à ce que ça marche. Ancré à Yaoundé · CEMAC, rayonnement Afrique francophone.",
   keywords: [
-    "conseil transformation digitale",
     "intelligence artificielle",
+    "IA Afrique",
     "Cameroun",
     "Yaoundé",
+    "CEMAC",
     "Afrique francophone",
-    "gouvernance IA",
+    "transformation digitale",
+    "diagnostic IA gratuit",
     "formation IA dirigeants",
     "formation IA cadres",
     "Augustin Njigui",
+    "Inov Consulting",
   ],
   authors: [{ name: "Augustin Njigui" }],
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://inov-cameroun.com",
-    siteName: "INOV Cameroun",
-    title: "INOV Cameroun — Conseil & Formation IA",
+    siteName: "Inov Consulting Cameroun",
+    title: "Inov Consulting Cameroun — Intelligence Artificielle",
     description:
-      "Cabinet de conseil en transformation digitale et intelligence artificielle — ancré au Cameroun, rayonnant en Afrique francophone.",
+      "On installe l'IA dans votre organisation — et on reste jusqu'à ce que ça marche. Yaoundé · CEMAC · Afrique francophone.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "INOV Cameroun — Conseil & Formation IA",
+    title: "Inov Consulting Cameroun — Intelligence Artificielle",
     description:
-      "Conseil & formation IA — ancré au Cameroun, rayonnant en Afrique francophone.",
+      "On installe l'IA dans votre organisation — et on reste jusqu'à ce que ça marche.",
   },
   robots: {
     index: true,
@@ -95,6 +99,7 @@ export default function RootLayout({
         <RevealProvider />
         {children}
         <ChatBot />
+        <CookieBanner />
       </body>
     </html>
   );

@@ -1,17 +1,19 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { FORMATIONS } from "@/data/inventaire";
 import {
   SoftBlob,
   DotsGrid,
-  SectionMarker,
   LogoWatermark,
 } from "@/components/ui/Decorations";
 
 /*
- * Section #formations — onglets Dirigeants/Cadres + accordéon 5 modules.
+ * Section formations — §02 Deux parcours (tabs + accordion).
+ * Source : formations_inov.pdf — §02 Deux parcours
+ *
+ * Composant utilisé sur /formations entre FormationsHeader et FormationsPricing.
  *
  * Direction artistique tech-forward IA :
  *  - Onglets minimalistes : texte + soulignement.
@@ -40,28 +42,9 @@ export default function Formations() {
 
   return (
     <section
-      id="formations"
+      aria-label="§02 Deux parcours"
       className="relative bg-paper text-ink py-24 md:py-32 overflow-hidden"
     >
-      {/* Image IA en accent visuel (top-right, faible opacité) */}
-      <div
-        aria-hidden
-        className="absolute top-0 right-0 w-full md:w-[60%] h-[55%] pointer-events-none -z-10"
-      >
-        <Image
-          src="/hero-ai-2.jpg"
-          alt=""
-          fill
-          sizes="60vw"
-          loading="lazy"
-          className="object-cover"
-          style={{ opacity: 0.10 }}
-        />
-        {/* Fade vers paper côté gauche et bas */}
-        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-paper/60 to-paper" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-paper" />
-      </div>
-
       {/* Décor : blob signal très diffus + dots grid */}
       <SoftBlob
         color="signal"
@@ -93,19 +76,9 @@ export default function Formations() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
-        {/* Repère éditorial */}
-        <SectionMarker
-          index="05"
-          label="FORMATIONS IA · 02 PARCOURS"
-          className="mb-10"
-        />
-
-        {/* En-tête */}
-        <div data-reveal="up" className="mb-16 md:mb-20 max-w-3xl">
-          <p className="eyebrow">{FORMATIONS.eyebrow}</p>
-          <h2 className="h2-display mt-5">{FORMATIONS.title}</h2>
-          <p className="lead mt-6">{FORMATIONS.subtitle}</p>
-        </div>
+        <p className="font-mono text-[11px] uppercase tracking-[0.18em] font-medium text-signal mb-10">
+          §02 · Deux parcours
+        </p>
 
         {/* Onglets minimalistes */}
         <div
@@ -254,14 +227,22 @@ export default function Formations() {
           </div>
 
           {/* CTA */}
-          <div className="mt-12">
-            <a
-              href="#contact"
-              className="group inline-flex items-center justify-center gap-3 bg-ink text-paper px-7 h-13 py-4 text-[15px] font-medium hover:bg-signal transition-colors"
+          <div className="mt-12 flex">
+            <Link
+              href="/contact"
+              className="group inline-flex items-center justify-center gap-3 bg-ink text-paper px-5 sm:px-7 h-12 text-[14px] sm:text-[15px] font-medium hover:bg-signal transition-colors rounded-md w-full sm:w-auto"
             >
-              {FORMATIONS.cta} — {track.id === "dirigeants" ? "Dirigeants" : "Cadres"}
-              <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-            </a>
+              <span className="truncate">
+                {FORMATIONS.cta} —{" "}
+                {track.id === "dirigeants" ? "Dirigeants" : "Cadres"}
+              </span>
+              <span
+                aria-hidden
+                className="shrink-0 transition-transform group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </Link>
           </div>
         </div>
       </div>

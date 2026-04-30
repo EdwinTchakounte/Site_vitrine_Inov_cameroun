@@ -1,11 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CONTACT } from "@/data/inventaire";
+import { BRAND, CONTACT } from "@/data/inventaire";
 
 /*
  * Nav fixe — fond paper permanent, drawer mobile soigné.
+ *
+ * Architecture multi-page (Phase 3) :
+ *  - 4 liens vers pages dédiées + 1 CTA "Parler de mon projet" → /contact
+ *  - Source : inov-cameroun-contenu.md.pdf — Section Navigation
  *
  * Drawer mobile :
  *  - Header avec logo + close button propre
@@ -16,16 +22,16 @@ import { CONTACT } from "@/data/inventaire";
  */
 
 const NAV_LINKS = [
-  { href: "#conseil", label: "Conseil" },
-  { href: "#formations", label: "Formations" },
-  { href: "#projets", label: "Projets" },
-  { href: "#profil", label: "Profil" },
-  { href: "#contact", label: "Contact" },
+  { href: "/pourquoi-nous", label: "Pourquoi nous" },
+  { href: "/methode", label: "Notre méthode" },
+  { href: "/secteurs", label: "Secteurs" },
+  { href: "/formations", label: "Formations" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -41,7 +47,14 @@ export default function Nav() {
     };
   }, [open]);
 
+  /* Ferme le drawer automatiquement au changement de route */
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
   const whatsappLink = `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.whatsappMessage)}`;
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <>
@@ -50,12 +63,12 @@ export default function Nav() {
           scrolled ? "border-b border-line" : "border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 h-16 flex items-center justify-between">
-          {/* Logo + wordmark */}
-          <a
-            href="#accueil"
-            className="flex items-center gap-2.5"
-            aria-label="INOV Cameroun — Accueil"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-16 h-16 flex items-center justify-between gap-3">
+          {/* Logo + wordmark — wordmark adaptatif selon largeur */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 sm:gap-2.5 min-w-0"
+            aria-label={`${BRAND.name} — Accueil`}
           >
             <Image
               src="/inov-logo.png"
@@ -63,34 +76,54 @@ export default function Nav() {
               width={32}
               height={26}
               priority
-              className="object-contain h-7 w-auto"
+              className="object-contain h-7 w-auto shrink-0"
             />
-            <span className="font-mono text-[11px] uppercase tracking-[0.1em] font-medium text-ink">
-              INOV <span className="text-signal">Cameroun</span>
+            <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.08em] sm:tracking-[0.1em] font-medium text-ink truncate">
+              {/* Sur très petits écrans : Inov · Cameroun ; au-delà : Inov Consulting Cameroun */}
+              <span className="sm:hidden">
+                Inov <span className="text-signal">Cameroun</span>
+              </span>
+              <span className="hidden sm:inline">
+                Inov Consulting{" "}
+                <span className="text-signal">Cameroun</span>
+              </span>
             </span>
-          </a>
+          </Link>
 
           {/* Liens desktop */}
           <nav className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-ink-soft hover:text-ink transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative text-sm font-medium transition-colors ${
+                    active
+                      ? "text-ink"
+                      : "text-ink-soft hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                  {active && (
+                    <span
+                      aria-hidden
+                      className="absolute -bottom-1 left-0 right-0 h-px bg-signal"
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* CTA desktop */}
-          <a
-            href="#contact"
+          <Link
+            href="/contact"
             className="hidden md:inline-flex items-center gap-2 text-sm font-medium bg-ink text-paper px-4 h-9 hover:bg-signal transition-colors"
           >
-            Prendre rendez-vous
+            Parler de mon projet
             <span aria-hidden>→</span>
-          </a>
+          </Link>
 
           {/* Hamburger mobile */}
           <button
@@ -149,7 +182,7 @@ export default function Nav() {
                   className="object-contain h-7 w-auto"
                 />
                 <span className="font-mono text-[11px] uppercase tracking-[0.1em] font-medium">
-                  INOV <span className="text-signal">Cameroun</span>
+                  Inov Consulting <span className="text-signal">Cameroun</span>
                 </span>
               </span>
               <button
@@ -181,40 +214,61 @@ export default function Nav() {
             {/* Liste de liens */}
             <nav className="flex-1 px-6 mt-3">
               <ul>
-                {NAV_LINKS.map((link, i) => (
-                  <li
-                    key={link.href}
-                    className={`transition-all duration-500 ${
-                      open
-                        ? "translate-x-0 opacity-100"
-                        : "translate-x-3 opacity-0"
-                    }`}
-                    style={{
-                      transitionDelay: open ? `${100 + i * 50}ms` : "0ms",
-                    }}
-                  >
-                    <a
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="group flex items-center justify-between gap-4 py-4 border-b border-line hover:border-signal/40 transition-colors"
+                {NAV_LINKS.map((link, i) => {
+                  const active = isActive(link.href);
+                  return (
+                    <li
+                      key={link.href}
+                      className={`transition-all duration-500 ${
+                        open
+                          ? "translate-x-0 opacity-100"
+                          : "translate-x-3 opacity-0"
+                      }`}
+                      style={{
+                        transitionDelay: open ? `${100 + i * 50}ms` : "0ms",
+                      }}
                     >
-                      <span className="flex items-baseline gap-4">
-                        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint group-hover:text-signal transition-colors">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink group-hover:text-signal transition-colors">
-                          {link.label}
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden
-                        className="text-ink-faint group-hover:text-signal group-hover:translate-x-1 transition-all"
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={`group flex items-center justify-between gap-4 py-4 border-b transition-colors ${
+                          active
+                            ? "border-signal/60"
+                            : "border-line hover:border-signal/40"
+                        }`}
                       >
-                        →
-                      </span>
-                    </a>
-                  </li>
-                ))}
+                        <span className="flex items-baseline gap-4">
+                          <span
+                            className={`font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                              active
+                                ? "text-signal"
+                                : "text-ink-faint group-hover:text-signal"
+                            }`}
+                          >
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span
+                            className={`font-display text-2xl font-semibold tracking-[-0.02em] transition-colors ${
+                              active ? "text-signal" : "text-ink group-hover:text-signal"
+                            }`}
+                          >
+                            {link.label}
+                          </span>
+                        </span>
+                        <span
+                          aria-hidden
+                          className={`transition-all ${
+                            active
+                              ? "text-signal translate-x-1"
+                              : "text-ink-faint group-hover:text-signal group-hover:translate-x-1"
+                          }`}
+                        >
+                          →
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
 
@@ -272,14 +326,14 @@ export default function Nav() {
               </ul>
 
               {/* CTA principal */}
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 onClick={() => setOpen(false)}
                 className="mt-6 group flex items-center justify-center gap-2 bg-ink text-paper h-12 text-sm font-semibold rounded-md hover:bg-signal transition-colors"
               >
-                Prendre rendez-vous
+                Parler de mon projet
                 <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,20 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CONTACT } from "@/data/inventaire";
+import { BRAND, CONTACT } from "@/data/inventaire";
 
 /*
  * Footer — minimaliste tech-forward.
  *
  * 4 colonnes desktop (identité + 3 listes), empilées mobile.
  * Fond ink (presque-noir) pour une vraie cloture visuelle.
+ *
+ * Liens nav synchronisés avec la nav top (PDF inov-cameroun-contenu.md.pdf).
  */
 
 const QUICK_LINKS = [
-  { href: "#conseil", label: "Conseil" },
-  { href: "#formations", label: "Formations" },
-  { href: "#projets", label: "Projets" },
-  { href: "#profil", label: "Profil" },
-  { href: "#contact", label: "Contact" },
+  { href: "/pourquoi-nous", label: "Pourquoi nous" },
+  { href: "/methode", label: "Notre méthode" },
+  { href: "/secteurs", label: "Secteurs" },
+  { href: "/formations", label: "Formations" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const LEGAL_LINKS = [
@@ -32,9 +34,9 @@ export default function Footer() {
           {/* Identité */}
           <div className="col-span-12 md:col-span-4">
             <Link
-              href="#accueil"
+              href="/"
               className="inline-flex items-center gap-2.5"
-              aria-label="INOV Cameroun — Accueil"
+              aria-label={`${BRAND.name} — Accueil`}
             >
               <Image
                 src="/inov-logo.png"
@@ -44,17 +46,17 @@ export default function Footer() {
                 className="object-contain h-7 w-auto"
               />
               <span className="font-mono text-[11px] uppercase tracking-[0.1em] font-medium">
-                INOV <span className="text-signal">Cameroun</span>
+                Inov Consulting <span className="text-signal">Cameroun</span>
               </span>
             </Link>
 
             <p className="mt-6 text-sm text-paper/55 leading-[1.6] font-normal max-w-xs">
-              Cabinet de conseil en transformation digitale et intelligence
-              artificielle.
+              Intelligence artificielle pour les organisations africaines —
+              ancré au Cameroun, rayonnement Afrique francophone.
             </p>
 
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.08em] text-paper/40">
-              {CONTACT.city}
+            <p className="mt-6 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.06em] sm:tracking-[0.08em] text-paper/40 leading-[1.5] break-words">
+              {CONTACT.hubLabel} · {CONTACT.languages}
             </p>
           </div>
 
@@ -143,9 +145,10 @@ export default function Footer() {
         </div>
 
         {/* Ligne basse */}
-        <div className="mt-16 pt-5 border-t border-paper/10">
-          <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-paper/40">
-            © 2026 INOV Cameroun — Tous droits réservés.
+        <div className="mt-12 md:mt-16 pt-5 border-t border-paper/10">
+          <p className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.06em] sm:tracking-[0.08em] text-paper/40 leading-[1.5] break-words">
+            © {BRAND.year} {BRAND.name} — Intelligence artificielle ·
+            Afrique francophone.
           </p>
         </div>
       </div>

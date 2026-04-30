@@ -371,6 +371,167 @@ export function CornerBracket({
 }
 
 /* ———————————————————————————————————————————————————————————
+ * Diamond — losange outline stylisé (rotated square).
+ * Pour une signature graphique plus variée que rect/cercle.
+ * ——————————————————————————————————————————————————————————— */
+export function Diamond({
+  variant = "ink",
+  size = 200,
+  filled = false,
+  className = "",
+}: {
+  variant?: ColorVariant;
+  size?: number;
+  filled?: boolean;
+  className?: string;
+}) {
+  const stroke = STROKE[variant];
+  const fill = filled ? FILL[variant] : "none";
+  return (
+    <svg
+      aria-hidden="true"
+      className={`pointer-events-none ${className}`}
+      width={size}
+      height={size}
+      viewBox="0 0 200 200"
+      fill="none"
+    >
+      <path
+        d="M 100 20 L 180 100 L 100 180 L 20 100 Z"
+        stroke={stroke}
+        strokeWidth="1"
+        fill={fill}
+      />
+      <path
+        d="M 100 50 L 150 100 L 100 150 L 50 100 Z"
+        stroke={stroke}
+        strokeWidth="1"
+        opacity="0.6"
+      />
+    </svg>
+  );
+}
+
+/* ———————————————————————————————————————————————————————————
+ * TwinSquircle — losange aux coins arrondis, jumelé décalé.
+ *
+ * Forme "soft facet" : deux squircles (rounded squares rotés 45°)
+ * empilés en décalé pour un effet de profondeur jumelée.
+ * Plus tendre qu'un Diamond pur, plus original qu'un cercle.
+ * ——————————————————————————————————————————————————————————— */
+export function TwinSquircle({
+  variant = "signal",
+  size = 240,
+  className = "",
+}: {
+  variant?: ColorVariant;
+  size?: number;
+  className?: string;
+}) {
+  const stroke = STROKE[variant];
+  const fill = FILL[variant];
+  return (
+    <svg
+      aria-hidden="true"
+      className={`pointer-events-none ${className}`}
+      width={size}
+      height={size}
+      viewBox="0 0 200 200"
+      fill="none"
+    >
+      {/* Squircle 1 — fond rempli, plus large, légèrement à gauche-bas */}
+      <g transform="translate(-6 8)">
+        <rect
+          x="40"
+          y="40"
+          width="120"
+          height="120"
+          rx="28"
+          ry="28"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth="1"
+          transform="rotate(45 100 100)"
+        />
+      </g>
+      {/* Squircle 2 — outline seul, plus petit, décalé droite-haut */}
+      <g transform="translate(14 -10)">
+        <rect
+          x="55"
+          y="55"
+          width="90"
+          height="90"
+          rx="22"
+          ry="22"
+          stroke={stroke}
+          strokeWidth="1"
+          fill="none"
+          transform="rotate(45 100 100)"
+        />
+      </g>
+    </svg>
+  );
+}
+
+/* ———————————————————————————————————————————————————————————
+ * OrbDuo — deux orbes circulaires jumelés en gradient soft.
+ *
+ * Forme alternative à SoftBlob, en paire (un grand + un petit
+ * légèrement détaché). Utile en signature de section.
+ * ——————————————————————————————————————————————————————————— */
+export function OrbDuo({
+  color = "signal",
+  size = 280,
+  opacity = 0.25,
+  className = "",
+}: {
+  color?: "signal" | "accent" | "primary";
+  size?: number;
+  opacity?: number;
+  className?: string;
+}) {
+  const colorMap = {
+    signal: "rgba(216, 27, 96, 1)",
+    accent: "rgba(41, 98, 255, 1)",
+    primary: "rgba(10, 23, 56, 1)",
+  };
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none relative ${className}`}
+      style={{ width: size, height: size }}
+    >
+      {/* Orbe principal */}
+      <div
+        className="absolute"
+        style={{
+          width: size,
+          height: size,
+          background: `radial-gradient(closest-side, ${colorMap[color]}, transparent 70%)`,
+          opacity,
+          borderRadius: "50%",
+          top: 0,
+          left: 0,
+        }}
+      />
+      {/* Orbe jumeau plus petit, détaché en bas-droit */}
+      <div
+        className="absolute"
+        style={{
+          width: size * 0.45,
+          height: size * 0.45,
+          background: `radial-gradient(closest-side, ${colorMap[color]}, transparent 70%)`,
+          opacity: opacity * 0.85,
+          borderRadius: "50%",
+          bottom: -size * 0.08,
+          right: -size * 0.06,
+        }}
+      />
+    </div>
+  );
+}
+
+/* ———————————————————————————————————————————————————————————
  * RingHalf — demi-anneau utile sur les coins de section.
  * ——————————————————————————————————————————————————————————— */
 export function RingHalf({

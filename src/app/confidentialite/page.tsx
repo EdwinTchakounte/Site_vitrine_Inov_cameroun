@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CONTACT } from "@/data/inventaire";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité — INOV Cameroun",
+  title: "Politique de confidentialité — Inov Consulting Cameroun",
   description:
     "Politique de protection des données personnelles d'inov-cameroun.com — conforme RGPD.",
 };
@@ -37,7 +37,7 @@ export default function Confidentialite() {
         <div className="mt-12 space-y-10 text-[15px] font-light leading-[1.75] text-ink/85">
           <Section title="Données collectées">
             <p>
-              Lorsque vous utilisez le formulaire de contact d'INOV Cameroun,
+              Lorsque vous utilisez le formulaire de contact d'Inov Consulting Cameroun,
               nous collectons uniquement les informations que vous fournissez
               volontairement :
             </p>

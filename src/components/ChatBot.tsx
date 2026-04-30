@@ -156,7 +156,7 @@ export default function ChatBot() {
             Assistant IA
           </p>
           <p className="mt-1 text-[12.5px] text-ink leading-[1.45] font-normal">
-            Bonjour ! Posez-moi vos questions sur INOV Cameroun.
+            Bonjour ! Posez-moi vos questions sur Inov Consulting Cameroun.
           </p>
           {/* Petite flèche pointant vers le FAB */}
           <span
@@ -194,7 +194,7 @@ export default function ChatBot() {
         }`}
         aria-hidden={!open}
         role="dialog"
-        aria-label="Assistant virtuel INOV Cameroun"
+        aria-label="Assistant virtuel Inov Consulting Cameroun"
       >
         <div className="flex flex-col bg-paper border border-line rounded-md shadow-[0_30px_60px_-25px_rgba(10,14,26,0.30)] overflow-hidden h-[75vh] sm:h-[560px] max-h-[calc(100vh-6rem)]">
           {/* Header sobre */}
@@ -255,7 +255,7 @@ export default function ChatBot() {
                     ↻ Réinitialiser
                   </button>
                   <a
-                    href="#contact"
+                    href="/contact"
                     onClick={() => setOpen(false)}
                     className="text-signal hover:underline"
                   >

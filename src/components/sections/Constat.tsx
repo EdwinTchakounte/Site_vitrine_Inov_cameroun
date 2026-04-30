@@ -100,8 +100,10 @@ export default function Constat() {
         <div data-reveal="up" className="mb-20 md:mb-28 max-w-4xl">
           <p className="eyebrow">{CONSTAT.eyebrow}</p>
           <h2 className="h2-display mt-5">
-            Les organisations ont les ressources. Ce qui manque, c'est{" "}
-            <span className="text-signal">la structure pour avancer</span>.
+            L'IA arrive en Afrique francophone.{" "}
+            <span className="text-signal">
+              Mais pas pour tout le monde de la même façon.
+            </span>
           </h2>
           <p className="lead mt-6">{CONSTAT.intro}</p>
         </div>

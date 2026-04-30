@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CONTACT } from "@/data/inventaire";
 
 export const metadata: Metadata = {
-  title: "Mentions légales — INOV Cameroun",
+  title: "Mentions légales — Inov Consulting Cameroun",
   description:
     "Mentions légales obligatoires du site inov-cameroun.com — éditeur, hébergeur, propriété intellectuelle.",
 };
@@ -34,7 +34,7 @@ export default function MentionsLegales() {
         <div className="mt-12 space-y-10 text-[15px] font-light leading-[1.75] text-ink/85">
           <Section title="Éditeur du site">
             <p>
-              <strong>INOV Cameroun</strong> — cabinet de conseil en
+              <strong>Inov Consulting Cameroun</strong> — cabinet de conseil en
               transformation digitale et intelligence artificielle.
             </p>
             <p>Représentant légal : Augustin Njigui, Fondateur.</p>
@@ -65,7 +65,7 @@ export default function MentionsLegales() {
           <Section title="Propriété intellectuelle">
             <p>
               L'ensemble du contenu de ce site (textes, images, logos,
-              identité visuelle) est la propriété exclusive d'INOV Cameroun,
+              identité visuelle) est la propriété exclusive d'Inov Consulting Cameroun,
               sauf mention contraire. Toute reproduction, représentation,
               modification ou exploitation, totale ou partielle, sans
               autorisation écrite préalable, est strictement interdite.
@@ -98,7 +98,7 @@ export default function MentionsLegales() {
             <p>
               Direction du projet et conception éditoriale : Augustin Njigui.
             </p>
-            <p>Réalisation technique : équipe INOV Cameroun, 2026.</p>
+            <p>Réalisation technique : équipe Inov Consulting Cameroun, 2026.</p>
           </Section>
         </div>
       </div>

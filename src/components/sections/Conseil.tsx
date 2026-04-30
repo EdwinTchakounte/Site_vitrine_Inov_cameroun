@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { CONSEIL, CONCEPTION } from "@/data/inventaire";
 import {
   SoftBlob,
@@ -126,8 +127,8 @@ export default function Conseil() {
               </p>
 
               {/* CTA */}
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="mt-auto pt-9 inline-flex items-center gap-2 text-sm font-medium text-ink group-hover:text-signal transition-colors"
               >
                 <span className="link-line">{offer.cta}</span>
@@ -137,7 +138,7 @@ export default function Conseil() {
                 >
                   →
                 </span>
-              </a>
+              </Link>
             </article>
           ))}
         </div>
@@ -206,8 +207,8 @@ export default function Conseil() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="mt-7 group inline-flex items-center gap-2 self-start text-[14px] font-semibold text-paper"
               >
                 <span className="link-line">Discuter d'un projet</span>
@@ -217,7 +218,7 @@ export default function Conseil() {
                 >
                   →
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

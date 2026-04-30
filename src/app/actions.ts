@@ -75,7 +75,7 @@ export async function sendContactMessage(
     Rôle: role,
     Intérêt: interest,
     Message: message || "(aucun message)",
-    _subject: `[INOV Cameroun] ${interest} — ${name} (${organization})`,
+    _subject: `[Inov Consulting Cameroun] ${interest} — ${name} (${organization})`,
     _captcha: "false",
     _template: "table",
   };

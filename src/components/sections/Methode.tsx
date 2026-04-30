@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { METHODE } from "@/data/inventaire";
 import {
   ConcentricCircles,
@@ -110,19 +111,19 @@ export default function Methode() {
         </ol>
 
         {/* CTA */}
-        <div data-reveal="up" className="mt-20">
-          <a
-            href="#contact"
-            className="group inline-flex items-center justify-center gap-3 bg-white text-primary px-7 h-13 py-4 text-[15px] font-medium hover:bg-signal hover:text-white transition-colors"
+        <div data-reveal="up" className="mt-16 md:mt-20 flex">
+          <Link
+            href="/contact"
+            className="group inline-flex items-center justify-center gap-3 bg-white text-primary px-5 sm:px-7 h-12 text-[14px] sm:text-[15px] font-medium hover:bg-signal hover:text-white transition-colors rounded-md w-full sm:w-auto"
           >
-            {METHODE.cta}
+            <span className="truncate">{METHODE.cta}</span>
             <span
               aria-hidden
-              className="transition-transform group-hover:translate-x-1"
+              className="shrink-0 transition-transform group-hover:translate-x-1"
             >
               →
             </span>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
